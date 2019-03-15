@@ -1,3 +1,6 @@
 {
-  "vim.disableExtension": true
+  "vim.disableExtension": true,
+  "editor.fontFamily": "PragmataPro Liga Regular",
+  "editor.smoothScrolling": true,
+  "editor.fontLigatures": true
 }
