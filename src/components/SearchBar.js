@@ -13,7 +13,6 @@ class SearchBar extends React.Component {
     event.preventDefault();
     //this prevents the form from performing its default action when presing enter, and now it will not refresh the page
     //console.log(this.state.term);
-    
   }
 
   render() {
