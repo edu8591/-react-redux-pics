@@ -1,6 +1,7 @@
 import React from 'react';
-import axios from 'axios';
+import unsplash from '../api/unsplash';
 import SearchBar from './SearchBar';
+import ImageList from './ImageList';
 
 
 //Needed to refactor the app component into a class component in order to pass information between child and parent
@@ -15,22 +16,20 @@ import SearchBar from './SearchBar';
 class App extends React.Component {
   state = { images: [] };
 
-  async onSearchSubmit (term)  { 
-    const response = await axios.get('https://api.unsplash.com/search/photos', {
-      params: { query: term },
-      headers: {
-        Authorization: 'Client-ID 2a2240d3f10ad3b951ba710dd7e3a108549b97688b24de511408ff188bc9375c'
-      }
+  onSearchSubmit = async (term) =>  { 
+    const response = await unsplash.get('/search/photos', {
+      params: { query: term }
     });
-    this.setState({ images:response.data.results });
+    this.setState({ images: response.data.results });
   }
    /*term refers to the search term, we should pass on this method to the searchbar as a prop */
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: '10px' }}>
-        <SearchBar onSubmit={this.onSearchSubmit}/>
-        Found: {this.state.images.length} images
+        <SearchBar onSubmit={this.onSearchSubmit}/>{/*si onSearchSubmit esta igualado a una funciion y no a un => function , como se esta pasando la funcion se esta llamando en sin el contexto y el this.setState
+        no se puede llamar, ya que setState no existe donde se esta llamando, al igualar onSearchSubmit a un => function va a usar el this del parent  */}
+        <ImageList images={this.state.images}/>
       </div>
     );
   }
